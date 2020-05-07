@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import './styles/global.css';
 import axios from 'axios';
-import { FaSkull, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaSkull, FaMapMarkerAlt, FaCheck } from 'react-icons/fa';
 
 function App() {
   const [arrayCorona, setArrayCorona] = useState([]);
@@ -31,7 +31,7 @@ function App() {
     <div className="container-fluid">
       <div className="card">
         <p> <FaMapMarkerAlt/> Cidade: {arrayCorona.city}</p>
-        <p>Confirmados: {arrayCorona.confirmed}</p>
+        <p> <FaCheck/> Confirmados: {arrayCorona.confirmed}</p>
         <p> <FaSkull/> Mortes: {arrayCorona.deaths}</p>
         <p>Atualizado em: {arrayCorona.date}</p>
       </div>
