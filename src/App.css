@@ -21,5 +21,17 @@
 
 .card {
   background-color: #dbdbdb;
-  padding: 30px;
+  padding: 0 30px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: 30px;
+}
+
+.footer p {
+  font-size: 13px;
 }
