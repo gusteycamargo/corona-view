@@ -5,10 +5,12 @@ import './styles/global.css';
 import axios from 'axios';
 import cep from 'cep-promise'
 import { FaSkull, FaMapMarkerAlt, FaCheck } from 'react-icons/fa';
+import Skeleton from 'react-loading-skeleton';
 
 function App() {
   const [arrayCorona, setArrayCorona] = useState([]);
   const [coords, setCoords] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -31,7 +33,7 @@ function App() {
   useEffect(() => {
     async function getCity() {
       const key = process.env.REACT_APP_KEY_API;
-
+      setIsLoading(true);
       await axios.get(`https://us1.locationiq.com/v1/reverse.php?key=${key}&lat=${coords.latitude}&lon=${coords.longitude}&format=json`)
       .then(function (response) {
           cep(response.data.address.postcode)
@@ -42,6 +44,7 @@ function App() {
       .catch(function (error) {
           console.log(error)
       });
+      setIsLoading(false);
     }
 
     getCity();
@@ -62,12 +65,27 @@ function App() {
     <div className="container-fluid">
       <div className="card">
         <div>
-          <p> <FaMapMarkerAlt/> Cidade: {arrayCorona.city}</p>
-          <p> <FaCheck/> Confirmados: {arrayCorona.confirmed}</p>
-          <p> <FaSkull/> Mortes: {arrayCorona.deaths}</p>
+          {(isLoading) ? (
+            <>
+              <p> <Skeleton/> </p>
+              <p> <Skeleton/> </p>
+              <p> <Skeleton/> </p>
+            </>
+            
+          ) : (
+            <>
+              <p> <FaMapMarkerAlt/> Cidade: {arrayCorona.city}</p>
+              <p> <FaCheck/> Confirmados: {arrayCorona.confirmed}</p>
+              <p> <FaSkull/> Mortes: {arrayCorona.deaths}</p>
+            </>
+          )}
         </div>
         <div className="footer">
-          <p>Atualizado em: {arrayCorona.date}</p>
+          {(isLoading) ? (
+            <p> <Skeleton/> </p>
+          ) : (
+            <p>Atualizado em: {arrayCorona.date}</p>
+          )}
         </div>
       </div>
     </div>

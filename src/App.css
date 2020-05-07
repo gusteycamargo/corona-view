@@ -26,6 +26,8 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  width: 50%;
+  height: 50%;
 }
 
 .footer {
