@@ -89,6 +89,10 @@
 @media (max-width: 715px) {
   .row {
     width: 80%;
+    flex-wrap: nowrap;
+  }
+  .button{
+    height: 2.429em;
   }
   .card {
     width: 80%;

@@ -22,19 +22,6 @@ function App() {
   }
 
   useEffect(() => {
-    
-    async function getStates() {
-      await axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-      .then(function (response) {
-          setStates(response.data);
-      })
-      .catch(function (error) {
-          console.log(error)
-      });
-    }
-
-    getStates();
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude} = position.coords;
@@ -50,6 +37,20 @@ function App() {
         timeout: 30000,
       }
     )
+  }, []);
+
+  useEffect(() => {
+    async function getStates() {
+      await axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(function (response) {
+          setStates(response.data);
+      })
+      .catch(function (error) {
+          console.log(error)
+      });
+    }
+
+    getStates();
   }, []);
 
   useEffect(() => {
