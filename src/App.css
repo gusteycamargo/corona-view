@@ -1,7 +1,37 @@
 #root {
   width: 100%;
   height: 100%;
+  background-color: #414141;
+
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.button {
+  width: 20%;
+  border-radius: 4px;
+  background-color: #d35555;
+  border: none;
+  color: #FFF;
+  height: 2.429em;
+}
+
+.rw-combobox .rw-widget {
+  width: 35%;
+}
+
+.rw-combobox {
+  height: 34px;
+  width: 35%;/* padding: 8px; */
+}
+
+
 
 .container-fluid {
   width: 100%;
@@ -9,7 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  flex-direction: column;
   flex: 1;
   margin: 0;
   padding: 0;
@@ -21,8 +51,8 @@
 
 .card {
   background-color: #dbdbdb;
-  padding: 0 30px;
-  padding-top: 30px;
+  padding: 30px;
+  
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -36,4 +66,35 @@
 
 .footer p {
   font-size: 13px;
+}
+
+@media (max-width: 870px) {
+  .row {
+    flex-direction: column;
+  }
+  .button {
+    width: 100%;
+  }
+  .rw-combobox .rw-widget {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .rw-combobox {
+    height: 34px;
+    width: 100%;/* padding: 8px; */
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 715px) {
+  .row {
+    width: 80%;
+  }
+  .card {
+    width: 80%;
+    height: 80%;
+  }
+  .container-fluid {
+    padding: 10% 0;
+  }
 }
