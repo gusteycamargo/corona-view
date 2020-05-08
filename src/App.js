@@ -8,6 +8,8 @@ import { FaSkull, FaMapMarkerAlt, FaCheck } from 'react-icons/fa';
 import Skeleton from 'react-loading-skeleton';
 import { Combobox } from 'react-widgets';
 import 'react-widgets/dist/css/react-widgets.css';
+import Header from './components/Header/index';
+import Footer from './components/Footer/index';
 
 function App() {
   const [arrayCorona, setArrayCorona] = useState([]);
@@ -34,7 +36,7 @@ function App() {
         console.log(err);
       },
       {
-        timeout: 30000,
+        timeout: 5000,
       }
     )
   }, []);
@@ -117,61 +119,64 @@ function App() {
   }
 
   return (
-    <div className="container-fluid">
+    <>
+        <Header/>
+        <div className="container-fluid">
+            <div className="row">
+              <Combobox 
+                  textField='sigla' 
+                  data={states} 
+                  onChange={setState}
+                  value={state}
+                  placeholder="Estado" 
+                  emptyList="Sem dados"
+              />
+              <Combobox 
+                  textField='nome' 
+                  messages={MESSAGES}
+                  data={cities} 
+                  onChange={setCitySelected}
+                  value={citySelected}
+                  placeholder="Cidade" 
+              />
+              <button onClick={() => retrieveData(citySelected.nome, state.sigla)} className="button">Filtrar</button>
+            </div>
 
-        <div className="row">
-          <Combobox 
-              textField='sigla' 
-              data={states} 
-              onChange={setState}
-              value={state}
-              placeholder="Estado" 
-              emptyList="Sem dados"
-          />
-          <Combobox 
-              textField='nome' 
-              messages={MESSAGES}
-              data={cities} 
-              onChange={setCitySelected}
-              value={citySelected}
-              placeholder="Cidade" 
-          />
-          <button onClick={() => retrieveData(citySelected.nome, state.sigla)} className="button">Filtrar</button>
-        </div>
-
-        <div className="card">
-          <div>
-            {(isLoading) ? (
-              <>
-                <p> <Skeleton/> </p>
-                <p> <Skeleton/> </p>
-                <p> <Skeleton/> </p>
-              </>
-            ) : (
-              <>
-                {(arrayCorona.city === undefined) ? (
-                    <p> <FaMapMarkerAlt/> Sem dados para essa cidade</p>
+            <div className="card">
+              <div>
+                {(isLoading) ? (
+                  <>
+                    <p> <Skeleton/> </p>
+                    <p> <Skeleton/> </p>
+                    <p> <Skeleton/> </p>
+                  </>
                 ) : (
                   <>
-                    <p> <FaMapMarkerAlt/> Cidade: {arrayCorona.city}</p>
-                    <p> <FaCheck/> Confirmados: {arrayCorona.confirmed}</p>
-                    <p> <FaSkull/> Mortes: {arrayCorona.deaths}</p>
+                    {(arrayCorona.city === undefined) ? (
+                        <p> <FaMapMarkerAlt/> Sem dados para essa cidade</p>
+                    ) : (
+                      <>
+                        <p> <FaMapMarkerAlt/> Cidade: {arrayCorona.city}</p>
+                        <p> <FaCheck/> Confirmados: {arrayCorona.confirmed}</p>
+                        <p> <FaSkull/> Mortes: {arrayCorona.deaths}</p>
+                      </>
+                    )
+                      
+                    }
                   </>
-                )
-                  
-                }
-              </>
-            )}
-          </div>
-          <div className="footer">
-            {(isLoading) ? (
-              <p> <Skeleton/> </p>
-            ) : (
-              <p>Atualizado em: {formatDateString(arrayCorona.date)}</p>
-            )}
-          </div>
+                )}
+              </div>
+              <div className="footer">
+                {(isLoading) ? (
+                  <p> <Skeleton/> </p>
+                ) : (
+                  <p>Atualizado em: {formatDateString(arrayCorona.date)}</p>
+                )}
+              </div>
+            </div>
         </div>
-    </div>
+        <Footer/>
+    </>
   );
 }
 

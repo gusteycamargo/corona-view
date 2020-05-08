@@ -1,0 +1,10 @@
+.container-footer {
+    background-color: #d35555;
+    width: 100%;
+    padding: 13px 30px;
+}
+
+.container-footer p {
+    margin: 0;
+    color: #FFF;
+}
